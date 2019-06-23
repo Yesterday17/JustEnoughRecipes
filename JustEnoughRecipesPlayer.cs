@@ -18,7 +18,14 @@ namespace JustEnoughRecipes {
         }
       } else if (JustEnoughRecipes.ItemUsageKey.JustPressed) {
         // TODO: Usage page
-        Logger.Warn("TODO Usage page");
+        Item selected = Main.mouseItem.netID != 0 ? Main.mouseItem : Main.HoverItem;
+        if (selected.netID != 0) {
+          RecipeFinder finder = new RecipeFinder();
+          finder.AddIngredient(selected.netID);
+          foreach (var r in finder.SearchRecipes()) {
+            Logger.Log(r.createItem.Name);
+          }
+        }
       }
     }
 
