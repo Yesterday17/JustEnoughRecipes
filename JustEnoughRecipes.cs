@@ -45,15 +45,19 @@ namespace JustEnoughRecipes {
       }
     }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
-      layers.Add(new LegacyGameInterfaceLayer("Recipe UI", DrawRecipeUI, InterfaceScaleType.UI));
-    }
-
-    private bool DrawRecipeUI() {
-      // in-game && is-visible && in-inventory-ui
-      if (!Main.gameMenu && RecipeUI.Visible && Main.playerInventory) {
-        UI.Draw(Main.spriteBatch, new GameTime());
+      int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+      if (mouseTextIndex != -1) {
+        layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+          "JustEnoughRecipes: Recipe UI",
+          delegate {
+            if (!Main.gameMenu && RecipeUI.Visible && Main.playerInventory) {
+              UI.Draw(Main.spriteBatch, new GameTime());
+            }
+            return true;
+          },
+          InterfaceScaleType.UI)
+        );
       }
-      return true;
     }
   }
 }
