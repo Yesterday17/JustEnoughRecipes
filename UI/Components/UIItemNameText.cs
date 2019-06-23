@@ -25,7 +25,7 @@ namespace JustEnoughRecipes.UI.Components {
     protected override void DrawSelf(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch) {
       CalculatedStyle innerDimensions = GetInnerDimensions();
       string name = bindItem == null ? "" : bindItem.Name;
-      Utils.DrawBorderString(spriteBatch, name, innerDimensions.Position(), Color.White);
+      Terraria.Utils.DrawBorderString(spriteBatch, name, innerDimensions.Position(), Color.White);
     }
   }
 }

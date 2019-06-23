@@ -8,11 +8,15 @@ using JustEnoughRecipes.UI;
 
 namespace JustEnoughRecipes {
   public class JustEnoughRecipes : Mod {
+    // Debug, set to false when release
+    public static bool DEBUG = true;
+
+    // Mod instance
     internal static JustEnoughRecipes instance;
     public static ModHotKey ItemRecipeKey;
     public static ModHotKey ItemUsageKey;
 
-    public UserInterface userInterface;
+    public UserInterface UI;
     public JustEnoughRecipes() {
       instance = this;
     }
@@ -22,8 +26,8 @@ namespace JustEnoughRecipes {
         RecipeUI recipeUI = new RecipeUI();
         recipeUI.Activate();
 
-        userInterface = new UserInterface();
-        userInterface.SetState(recipeUI);
+        UI = new UserInterface();
+        UI.SetState(recipeUI);
         ItemRecipeKey = RegisterHotKey("Show Item Recipe", "R");
         ItemUsageKey = RegisterHotKey("Show Item Usage", "U");
       }
@@ -37,7 +41,7 @@ namespace JustEnoughRecipes {
 
     public override void UpdateUI(GameTime gameTime) {
       if (!Main.gameMenu && RecipeUI.Visible) {
-        userInterface.Update(gameTime);
+        UI.Update(gameTime);
       }
     }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
@@ -45,8 +49,9 @@ namespace JustEnoughRecipes {
     }
 
     private bool DrawRecipeUI() {
-      if (!Main.gameMenu && RecipeUI.Visible) {
-        userInterface.Draw(Main.spriteBatch, new GameTime());
+      // in-game && is-visible && in-inventory-ui
+      if (!Main.gameMenu && RecipeUI.Visible && Main.playerInventory) {
+        UI.Draw(Main.spriteBatch, new GameTime());
       }
       return true;
     }

@@ -1,5 +1,5 @@
 using JustEnoughRecipes.UI;
-using Microsoft.Xna.Framework.Input;
+using JustEnoughRecipes.Utils;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
@@ -9,13 +9,16 @@ namespace JustEnoughRecipes {
     public override void ProcessTriggers(TriggersSet triggersSet) {
       if (JustEnoughRecipes.ItemRecipeKey.JustPressed) {
         Item selected = Main.mouseItem.netID != 0 ? Main.mouseItem : Main.HoverItem;
-        Main.NewText(selected.ToString());
         if (selected.netID != 0) {
+          Logger.Log(selected.ToString());
           RecipeUI.panelTitle.UpdateItem(selected);
           RecipeUI.Visible = true;
         } else {
           RecipeUI.Visible = false;
         }
+      } else if (JustEnoughRecipes.ItemUsageKey.JustPressed) {
+        // TODO: Usage page
+        Logger.Warn("TODO Usage page");
       }
     }
 
