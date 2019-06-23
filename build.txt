@@ -1,0 +1,9 @@
+author = Yesterday17
+version = 0.1
+displayName = Just Enough Recipes
+homepage = https://www.yesterday17.cn/
+hideCode = false
+hideResources = false
+includeSource = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
+includePDB = true

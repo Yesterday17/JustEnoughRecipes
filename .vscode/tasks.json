@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet build",
+      "type": "shell",
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "postBuild",
+      "command": "&'D:\\Program Files (x86)\\Steam\\steamapps\\common\\Terraria\\tModLoaderServer.exe' -build '${workspaceFolder}' -eac '${workspaceFolder}\\bin\\Debug\\net462\\JustEnoughRecipes.dll'",
+      "type": "shell",
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": false
+      }
+    },
+    {
+      "label": "Build",
+      "dependsOn": ["build", "postBuild"]
+    }
+  ]
+}
