@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -11,9 +12,8 @@ namespace JustEnoughRecipes.UI {
 
     public RecipeUIPanel RecipeUIPanel;
     public static UIItemNameText panelTitle;
-
     public static UIPageNavigator pageNavigator;
-
+    public static UIItemSlot slot;
     public static bool Visible;
 
     public override void OnInitialize() {
@@ -33,10 +33,15 @@ namespace JustEnoughRecipes.UI {
       pageNavigator.Top.Set(32f, 0f); // the height of text is 30, add 2px gap
       RecipeUIPanel.Append(pageNavigator);
 
-      // button
+      // button(test)
       UITextButton button = new UITextButton("2333");
       button.Top.Set(100f, 0f);
       RecipeUIPanel.Append(button);
+
+      // item(test)
+      slot = new UIItemSlot();
+      slot.Top.Set(150f, 0f);
+      RecipeUIPanel.Append(slot);
 
       Append(RecipeUIPanel);
     }

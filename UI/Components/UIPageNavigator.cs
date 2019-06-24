@@ -1,9 +1,6 @@
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Terraria;
 using Terraria.UI;
 using Terraria.GameContent.UI.Elements;
-using Terraria.ModLoader;
 
 namespace JustEnoughRecipes.UI.Components {
   public class UIPageNavigator : UIElement {

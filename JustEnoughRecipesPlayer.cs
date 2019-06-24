@@ -12,6 +12,7 @@ namespace JustEnoughRecipes {
         if (selected.netID != 0) {
           Logger.Log(selected.ToString());
           RecipeUI.panelTitle.UpdateItem(selected);
+          RecipeUI.slot.SetItem(selected);
 
           RecipeFinder finder = new RecipeFinder();
           finder.SetResult(selected.netID);
