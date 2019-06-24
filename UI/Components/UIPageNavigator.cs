@@ -15,6 +15,8 @@ namespace JustEnoughRecipes.UI.Components {
     private int _now;
     private int _total;
 
+    private int times = 0;
+
     public UIPageNavigator() {
       prevTexture = JustEnoughRecipes.instance.GetTexture("Assets/arrow_prev");
       nextTexture = JustEnoughRecipes.instance.GetTexture("Assets/arrow_next");
@@ -67,7 +69,6 @@ namespace JustEnoughRecipes.UI.Components {
       nextButton.Height.Set(16f, 0f);
       nextButton.Top.Set(0f, 0f);
       nextButton.Left.Set(Parent.Width.Pixels - nextButton.Width.Pixels - Parent.PaddingLeft - Parent.PaddingRight, 0f);
-      nextButton.OnClick += this.NextButtonClicked;
       Append(nextButton);
 
       // page text
@@ -76,14 +77,26 @@ namespace JustEnoughRecipes.UI.Components {
       Append(pageText);
     }
 
-    public void NextButtonClicked(UIMouseEvent evt, UIElement listeningElement) {
-      Utils.Logger.Log("Next");
+    public void Prev() {
+      this.SetNow(this._now - 1);
+    }
+    public void Next() {
       this.SetNow(this._now + 1);
     }
 
+    public void NextButtonClicked(UIMouseEvent evt, UIElement listeningElement) {
+      Next();
+    }
+
     public void PrevButtonClicked(UIMouseEvent evt, UIElement listeningElement) {
-      Utils.Logger.Log("Prev");
-      this.SetNow(this._now - 1);
+      Prev();
+    }
+
+    public override void ScrollWheel(UIScrollWheelEvent evt) {
+      base.ScrollWheel(evt);
+      Utils.Logger.Log(times++.ToString());
+      // var val = evt.ScrollWheelValue;
+      // this.SetNow(this._now + (-val / 120));
     }
   }
 }

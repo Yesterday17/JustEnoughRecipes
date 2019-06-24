@@ -1,5 +1,5 @@
 author = Yesterday17
-version = 0.0.53
+version = 0.0.55
 displayName = Just Enough Recipes
 homepage = https://www.yesterday17.cn/
 hideCode = false
