@@ -1,6 +1,9 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.UI;
 using Terraria.GameContent.UI.Elements;
+using Terraria.ModLoader;
 using JustEnoughRecipes.UI.Components;
 
 namespace JustEnoughRecipes.UI {
@@ -26,6 +29,14 @@ namespace JustEnoughRecipes.UI {
       UITextButton button = new UITextButton("2333");
       button.Top.Set(100f, 0f);
       RecipeUIPanel.Append(button);
+
+      Texture2D prevTexture = JustEnoughRecipes.instance.GetTexture("UI/arrow_prev");
+      UIImageButton prevButton = new UIImageButton(prevTexture);
+      prevButton.Width.Set(32f, 0f);
+      prevButton.Height.Set(32f, 0f);
+      prevButton.Top.Set(200f, 0f);
+      prevButton.Left.Set(0f, 0f);
+      RecipeUIPanel.Append(prevButton);
 
       Append(RecipeUIPanel);
     }
