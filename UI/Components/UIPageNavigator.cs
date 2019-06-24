@@ -3,8 +3,17 @@ using Terraria.UI;
 using Terraria.GameContent.UI.Elements;
 
 namespace JustEnoughRecipes.UI.Components {
-  public class UIPageNavigator : UIElement {
+  public class PageUpdateEventArgs {
+    public PageUpdateEventArgs(int now, int total) { _now = now; _total = total; }
 
+    private int _now;
+    private int _total;
+
+    public int Now { get { return this._now; } }
+    public int Total { get { return this._total; } }
+  }
+
+  public class UIPageNavigator : UIElement {
     UIImageButton prevButton;
     UIImageButton nextButton;
     UIText pageText;
@@ -15,19 +24,18 @@ namespace JustEnoughRecipes.UI.Components {
     private int _now;
     private int _total;
 
+    public delegate void UpdateHandler(object sender, PageUpdateEventArgs e);
+    public event UpdateHandler PageUpdateEvent;
+
     public UIPageNavigator() {
       prevTexture = JustEnoughRecipes.instance.GetTexture("Assets/arrow_prev");
       nextTexture = JustEnoughRecipes.instance.GetTexture("Assets/arrow_next");
       SetPages(0, 0);
     }
 
-    protected string progress {
-      get {
-        return _now.ToString() + "/" + _total.ToString();
-      }
-    }
+    protected string progress { get { return _now.ToString() + "/" + _total.ToString(); } }
 
-    public int SetPages(int now, int total) {
+    public void SetPages(int now, int total) {
       if (total < 0) total = 0;
       if (now < 1) now = total > 0 ? 1 : 0;
       if (now > total) now = total;
@@ -37,15 +45,24 @@ namespace JustEnoughRecipes.UI.Components {
       if (pageText != null)
         pageText.SetText(progress);
 
-      return this._now;
+      if (PageUpdateEvent != null)
+        PageUpdateEvent(this, new PageUpdateEventArgs(this._now, this._total));
     }
 
-    public int SetNow(int now) {
-      return SetPages(now, this._total);
+    public void SetNow(int now) {
+      SetPages(now, this._total);
     }
 
-    public int SetTotal(int total) {
-      return SetPages(total == 0 ? 0 : 1, total);
+    public void SetTotal(int total) {
+      SetPages(total == 0 ? 0 : 1, total);
+    }
+
+    public void Prev() {
+      this.SetNow(this._now - 1);
+    }
+
+    public void Next() {
+      this.SetNow(this._now + 1);
     }
 
     public override void OnInitialize() {
@@ -74,13 +91,8 @@ namespace JustEnoughRecipes.UI.Components {
       pageText = new UIText(progress);
       pageText.Left.Set(Parent.Width.Pixels / 2 - Parent.PaddingLeft - Parent.PaddingRight, 0f);
       Append(pageText);
-    }
 
-    public void Prev() {
-      this.SetNow(this._now - 1);
-    }
-    public void Next() {
-      this.SetNow(this._now + 1);
+      this.OnScrollWheel += ScrollWheel;
     }
 
     public void NextButtonClicked(UIMouseEvent evt, UIElement listeningElement) {
@@ -91,9 +103,16 @@ namespace JustEnoughRecipes.UI.Components {
       Prev();
     }
 
-    public override void ScrollWheel(UIScrollWheelEvent evt) {
+    public void ScrollWheel(UIScrollWheelEvent evt, UIElement listeningElement) {
       // Note that you should **enable** frame skip
-      this.SetNow(this._now + (-evt.ScrollWheelValue / 120));
+      var steps = -evt.ScrollWheelValue / 120;
+
+      for (int i = 0; i < System.Math.Abs(steps); i++)
+        if (steps > 0) {
+          NextButtonClicked(evt, listeningElement);
+        } else {
+          PrevButtonClicked(evt, listeningElement);
+        }
     }
   }
 }

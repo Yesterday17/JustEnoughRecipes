@@ -12,7 +12,7 @@ namespace JustEnoughRecipes.Utils {
     }
     public static Item GetTileItem(int tileID) {
       // TODO: Finish Map
-      Logger.Log(tileID.ToString());
+      Logger.Log("TileID: " + tileID.ToString());
       switch (tileID) {
         case -1:
           return NewItem(ItemID.DirtBlock);

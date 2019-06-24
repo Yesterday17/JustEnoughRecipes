@@ -31,6 +31,7 @@ namespace JustEnoughRecipes.UI {
       // page
       pageNavigator = new UIPageNavigator();
       pageNavigator.Top.Set(32f, 0f); // the height of text is 30, add 2px gap
+      pageNavigator.PageUpdateEvent += UpdateRecipe;
       RecipeUIPanel.Append(pageNavigator);
 
       // button(test)
@@ -48,6 +49,11 @@ namespace JustEnoughRecipes.UI {
 
     public override void Update(GameTime gameTime) {
       base.Update(gameTime);
+    }
+
+    public void UpdateRecipe(object sender, PageUpdateEventArgs e) {
+      // TODO: Update recipe here
+      Utils.Logger.Log("Update recipe!");
     }
   }
 }
