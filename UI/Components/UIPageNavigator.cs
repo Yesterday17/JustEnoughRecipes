@@ -19,8 +19,8 @@ namespace JustEnoughRecipes.UI.Components {
     private int _total;
 
     public UIPageNavigator() {
-      prevTexture = JustEnoughRecipes.instance.GetTexture("UI/arrow_prev");
-      nextTexture = JustEnoughRecipes.instance.GetTexture("UI/arrow_next");
+      prevTexture = JustEnoughRecipes.instance.GetTexture("Assets/arrow_prev");
+      nextTexture = JustEnoughRecipes.instance.GetTexture("Assets/arrow_next");
       SetPages(0, 0);
     }
 
