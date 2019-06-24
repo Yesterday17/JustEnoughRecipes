@@ -37,11 +37,19 @@ namespace JustEnoughRecipes.UI.Components {
         }
 
         if (!this._item.IsAir) {
+          // Draw item
           Texture2D itemTexture = Main.itemTexture[this._item.type];
           Vector2 bgSize = backgroundTexture.Size() * this._scale;
           Rectangle itemRectangle = itemTexture.Frame(1, 1, 0, 0);
           Vector2 position2 = dimensions.Position() + bgSize / 2f - itemRectangle.Size() * this._scale / 2f;
           spriteBatch.Draw(itemTexture, position2, null, Color.White, 0f, Vector2.Zero, this._scale, SpriteEffects.None, 0f);
+
+          // Draw item count if larger than 1
+          if (this._item.stack > 1) {
+            var fontSize = Main.fontMouseText.MeasureString(this._item.stack.ToString());
+            var fontPos = dimensions.Position() + bgSize - fontSize * this._scale;
+            Terraria.Utils.DrawBorderString(spriteBatch, this._item.stack.ToString(), fontPos, Color.White, this._scale);
+          }
 
           if (IsMouseHovering) {
             Main.HoverItem = this._item.Clone();
