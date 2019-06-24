@@ -12,6 +12,8 @@ namespace JustEnoughRecipes.UI {
     public RecipeUIPanel RecipeUIPanel;
     public static UIItemNameText panelTitle;
 
+    public static UIPageNavigator pageNavigator;
+
     public static bool Visible;
 
     public override void OnInitialize() {
@@ -24,13 +26,12 @@ namespace JustEnoughRecipes.UI {
 
       // title
       panelTitle = new UIItemNameText();
-      panelTitle.Left.Set(RecipeUIPanel.Width.Pixels / 2 - RecipeUIPanel.PaddingLeft - RecipeUIPanel.PaddingRight, 0f);
       RecipeUIPanel.Append(panelTitle);
 
       // page
-      UIPageNavigator pages = new UIPageNavigator();
-      pages.Top.Set(32f, 0f); // the height of text is 30, add 2px gap
-      RecipeUIPanel.Append(pages);
+      pageNavigator = new UIPageNavigator();
+      pageNavigator.Top.Set(32f, 0f); // the height of text is 30, add 2px gap
+      RecipeUIPanel.Append(pageNavigator);
 
       // button
       UITextButton button = new UITextButton("2333");

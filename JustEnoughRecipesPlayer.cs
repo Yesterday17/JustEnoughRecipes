@@ -12,6 +12,11 @@ namespace JustEnoughRecipes {
         if (selected.netID != 0) {
           Logger.Log(selected.ToString());
           RecipeUI.panelTitle.UpdateItem(selected);
+
+          RecipeFinder finder = new RecipeFinder();
+          finder.SetResult(selected.netID);
+          var result = finder.SearchRecipes();
+          RecipeUI.pageNavigator.SetTotal(result.Count);
           RecipeUI.Visible = true;
         } else {
           RecipeUI.Visible = false;

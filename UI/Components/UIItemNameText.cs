@@ -19,9 +19,9 @@ namespace JustEnoughRecipes.UI.Components {
 
       if (item != null) {
         var fontSize = Main.fontMouseText.MeasureString(item.Name);
-        Utils.Logger.Log(fontSize.ToString());
         this.Width.Set(fontSize.X, 0f);
         this.Height.Set(fontSize.Y, 0f);
+        this.Left.Set(Parent.Width.Pixels / 2 - fontSize.X / 2 - Parent.PaddingRight, 0f);
       }
     }
 
