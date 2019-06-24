@@ -11,9 +11,11 @@ namespace JustEnoughRecipes.UI.Components {
     public static Texture2D backgroundTexture = Main.inventoryBack9Texture;
     private Item _item;
     private float _scale;
-    public UIItemSlot(Item item = null, float scale = 0.75f) {
+    private bool _drawBackground;
+    public UIItemSlot(Item item = null, float scale = 0.75f, bool drawBackground = true) {
       SetItem(item);
       this._scale = scale;
+      this._drawBackground = drawBackground;
 
       this.Width.Set(backgroundTexture.Width * this._scale, 0f);
       this.Height.Set(backgroundTexture.Height * this._scale, 0f);
@@ -28,8 +30,10 @@ namespace JustEnoughRecipes.UI.Components {
         CalculatedStyle dimensions = base.GetInnerDimensions();
         Rectangle rectangle = dimensions.ToRectangle();
 
-        // draw slot
-        spriteBatch.Draw(backgroundTexture, dimensions.Position(), null, Color.White, 0f, Vector2.Zero, this._scale, SpriteEffects.None, 0f);
+        if (this._drawBackground) {
+          // draw slot background
+          spriteBatch.Draw(backgroundTexture, dimensions.Position(), null, Color.White, 0f, Vector2.Zero, this._scale, SpriteEffects.None, 0f);
+        }
 
         if (!this._item.IsAir) {
           Texture2D itemTexture = Main.itemTexture[this._item.type];

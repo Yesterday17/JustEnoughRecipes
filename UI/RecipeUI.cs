@@ -39,7 +39,7 @@ namespace JustEnoughRecipes.UI {
       RecipeUIPanel.Append(button);
 
       // item(test)
-      slot = new UIItemSlot();
+      slot = new UIItemSlot(null, 0.75f, false);
       slot.Top.Set(150f, 0f);
       RecipeUIPanel.Append(slot);
 
