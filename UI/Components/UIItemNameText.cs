@@ -16,6 +16,13 @@ namespace JustEnoughRecipes.UI.Components {
 
     public void UpdateItem(Item item) {
       this.bindItem = item;
+
+      if (item != null) {
+        var fontSize = Main.fontMouseText.MeasureString(item.Name);
+        Utils.Logger.Log(fontSize.ToString());
+        this.Width.Set(fontSize.X, 0f);
+        this.Height.Set(fontSize.Y, 0f);
+      }
     }
 
     public void UnbindItem() {
