@@ -22,6 +22,10 @@ namespace JustEnoughRecipes.Utils {
           return NewItem(ItemID.IronAnvil);
         case TileID.Furnaces:
           return NewItem(ItemID.Furnace);
+        case TileID.Bottles:
+          return NewItem(ItemID.Bottle);
+        case TileID.Tables:
+          return NewItem(ItemID.WoodenTable);
         case TileID.HeavyWorkBench:
           return NewItem(ItemID.HeavyWorkBench);
         case TileID.TinkerersWorkbench:

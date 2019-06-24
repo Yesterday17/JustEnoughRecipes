@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
-using Terraria.GameContent.UI.Elements;
-using Terraria.ModLoader;
 
 namespace JustEnoughRecipes.UI.Components {
   public class UIItemSlot : UIElement {
@@ -23,6 +20,10 @@ namespace JustEnoughRecipes.UI.Components {
 
     public void SetItem(Item item) {
       this._item = item;
+    }
+
+    public void SetBackground(bool enable) {
+      this._drawBackground = enable;
     }
 
     protected override void DrawSelf(SpriteBatch spriteBatch) {

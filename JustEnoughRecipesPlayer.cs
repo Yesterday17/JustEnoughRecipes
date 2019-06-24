@@ -11,21 +11,17 @@ namespace JustEnoughRecipes {
         Item selected = Main.mouseItem.netID != 0 ? Main.mouseItem : Main.HoverItem;
         if (selected.netID != 0) {
           Logger.Log(selected.ToString());
-          RecipeUI.panelTitle.UpdateItem(selected);
+          JustEnoughRecipes.instance.recipeUI.panelTitle.UpdateItem(selected);
 
           RecipeFinder finder = new RecipeFinder();
           finder.SetResult(selected.netID);
           var result = finder.SearchRecipes();
-          RecipeUI.pageNavigator.SetTotal(result.Count);
+          JustEnoughRecipes.instance.recipeUI.SetRecipes(result);
+          JustEnoughRecipes.instance.recipeUI.pageNavigator.SetTotal(result.Count);
 
-          if (result.Count > 0) {
-            var i = Utils.TileItemMap.GetTileItem(result[0].requiredTile[0]);
-            RecipeUI.slot.SetItem(i);
-          }
-
-          RecipeUI.Visible = true;
+          JustEnoughRecipes.instance.recipeUI.Visible = true;
         } else {
-          RecipeUI.Visible = false;
+          JustEnoughRecipes.instance.recipeUI.Visible = false;
         }
       } else if (JustEnoughRecipes.ItemUsageKey.JustPressed) {
         // TODO: Usage page
@@ -41,7 +37,7 @@ namespace JustEnoughRecipes {
     }
 
     public override void OnEnterWorld(Player player) {
-      RecipeUI.Visible = false;
+      JustEnoughRecipes.instance.recipeUI.Visible = false;
     }
   }
 }

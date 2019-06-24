@@ -42,11 +42,12 @@ namespace JustEnoughRecipes.UI.Components {
       this._now = now;
       this._total = total;
 
-      if (pageText != null)
+      if (pageText != null) {
         pageText.SetText(progress);
 
-      if (PageUpdateEvent != null)
-        PageUpdateEvent(this, new PageUpdateEventArgs(this._now, this._total));
+        if (PageUpdateEvent != null)
+          PageUpdateEvent(this, new PageUpdateEventArgs(this._now, this._total));
+      }
     }
 
     public void SetNow(int now) {

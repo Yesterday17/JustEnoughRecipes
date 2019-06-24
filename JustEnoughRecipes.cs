@@ -16,6 +16,7 @@ namespace JustEnoughRecipes {
     public static ModHotKey ItemRecipeKey;
     public static ModHotKey ItemUsageKey;
 
+    public RecipeUI recipeUI;
     public UserInterface UI;
     public JustEnoughRecipes() {
       instance = this;
@@ -23,7 +24,7 @@ namespace JustEnoughRecipes {
 
     public override void Load() {
       if (!Main.dedServ) {
-        RecipeUI recipeUI = new RecipeUI();
+        recipeUI = new RecipeUI();
         recipeUI.Activate();
 
         UI = new UserInterface();
@@ -40,7 +41,7 @@ namespace JustEnoughRecipes {
     }
 
     public override void UpdateUI(GameTime gameTime) {
-      if (!Main.gameMenu && RecipeUI.Visible) {
+      if (!Main.gameMenu && JustEnoughRecipes.instance.recipeUI.Visible) {
         UI.Update(gameTime);
       }
     }
@@ -50,7 +51,7 @@ namespace JustEnoughRecipes {
         layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
           "JustEnoughRecipes: Recipe UI",
           delegate {
-            if (!Main.gameMenu && RecipeUI.Visible && Main.playerInventory) {
+            if (!Main.gameMenu && JustEnoughRecipes.instance.recipeUI.Visible && Main.playerInventory) {
               UI.Draw(Main.spriteBatch, new GameTime());
             }
             return true;

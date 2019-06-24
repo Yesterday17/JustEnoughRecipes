@@ -9,12 +9,16 @@ using JustEnoughRecipes.UI.Components;
 
 namespace JustEnoughRecipes.UI {
   public class RecipeUI : UIState {
-
+    private List<Recipe> _recipes;
     public RecipeUIPanel RecipeUIPanel;
-    public static UIItemNameText panelTitle;
-    public static UIPageNavigator pageNavigator;
-    public static UIItemSlot slot;
-    public static bool Visible;
+    public UIItemNameText panelTitle;
+    public UIPageNavigator pageNavigator;
+    public UIItemRecipe recipeManager;
+    public bool Visible;
+
+    public void SetRecipes(List<Recipe> recipes) {
+      this._recipes = recipes;
+    }
 
     public override void OnInitialize() {
       RecipeUIPanel = new RecipeUIPanel();
@@ -34,15 +38,15 @@ namespace JustEnoughRecipes.UI {
       pageNavigator.PageUpdateEvent += UpdateRecipe;
       RecipeUIPanel.Append(pageNavigator);
 
-      // button(test)
-      UITextButton button = new UITextButton("2333");
-      button.Top.Set(100f, 0f);
-      RecipeUIPanel.Append(button);
+      // recipe
+      recipeManager = new UIItemRecipe();
+      recipeManager.Top.Set(55f, 0f);
+      RecipeUIPanel.Append(recipeManager);
 
-      // item(test)
-      slot = new UIItemSlot(null, 0.75f, false);
-      slot.Top.Set(150f, 0f);
-      RecipeUIPanel.Append(slot);
+      // button(test)
+      // UITextButton button = new UITextButton("2333");
+      // button.Top.Set(100f, 0f);
+      // RecipeUIPanel.Append(button);
 
       Append(RecipeUIPanel);
     }
@@ -53,7 +57,11 @@ namespace JustEnoughRecipes.UI {
 
     public void UpdateRecipe(object sender, PageUpdateEventArgs e) {
       // TODO: Update recipe here
-      Utils.Logger.Log("Update recipe!");
+      if (e.Now <= this._recipes.Count && e.Now > 0) {
+        recipeManager.SetRecipe(this._recipes[e.Now - 1]);
+      } else {
+        recipeManager.ClearRecipe();
+      }
     }
   }
 }
