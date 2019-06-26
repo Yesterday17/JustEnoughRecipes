@@ -33,6 +33,11 @@ namespace JustEnoughRecipes.UI.Components {
       CalculatedStyle innerDimensions = GetInnerDimensions();
       string name = bindItem == null ? "" : bindItem.Name;
       Terraria.Utils.DrawBorderString(spriteBatch, name, innerDimensions.Position(), Color.White);
+
+      if (bindItem != null && IsMouseHovering) {
+        Main.HoverItem = this.bindItem.Clone();
+        Main.hoverItemName = this.bindItem.Name;
+      }
     }
   }
 }
