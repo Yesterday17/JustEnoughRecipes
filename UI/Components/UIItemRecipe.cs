@@ -67,8 +67,7 @@ namespace JustEnoughRecipes.UI.Components {
         // TODO: i18n
         Terraria.Utils.DrawBorderString(spriteBatch, "At:    Items:", dimensions.Position(), Color.White);
       } else {
-        // TODO: i18n
-        var noRecipeText = "No recipe found.";
+        var noRecipeText = Utils.I18n.GetLocalizedString(Utils.I18n.recipeNotFound);
         var fontPos = dimensions.Position() + new Vector2(this.Width.Pixels / 2, this.Height.Pixels / 2) - Main.fontMouseText.MeasureString(noRecipeText) / 2;
         Terraria.Utils.DrawBorderString(spriteBatch, noRecipeText, fontPos, Color.White);
       }

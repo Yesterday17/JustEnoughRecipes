@@ -31,6 +31,8 @@ namespace JustEnoughRecipes {
         UI.SetState(recipeUI);
         ItemRecipeKey = RegisterHotKey("Show Item Recipe", "R");
         ItemUsageKey = RegisterHotKey("Show Item Usage", "U");
+
+        Utils.I18n.InitializeI18n();
       }
     }
 
