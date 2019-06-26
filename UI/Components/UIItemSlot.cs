@@ -9,6 +9,7 @@ namespace JustEnoughRecipes.UI.Components {
     private Item _item;
     private float _scale;
     private bool _drawBackground;
+
     public UIItemSlot(Item item = null, float scale = 0.75f, bool drawBackground = true) {
       SetItem(item);
       this._scale = scale;
@@ -24,6 +25,10 @@ namespace JustEnoughRecipes.UI.Components {
 
     public void SetBackground(bool enable) {
       this._drawBackground = enable;
+    }
+
+    public bool IsEmpty() {
+      return this._item == null;
     }
 
     protected override void DrawSelf(SpriteBatch spriteBatch) {
