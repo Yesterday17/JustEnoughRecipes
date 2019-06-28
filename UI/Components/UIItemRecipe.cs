@@ -10,6 +10,7 @@ namespace JustEnoughRecipes.UI.Components {
     private List<UIItemSlot> _slots = new List<UIItemSlot>(Recipe.maxRequirements);
 
     private static float globalTextHeightOffset = 20f;
+    private static float globalGapPixels = 5f;
     public UIItemRecipe() { }
 
     public void SetRecipe(Recipe recipe) {
@@ -39,16 +40,16 @@ namespace JustEnoughRecipes.UI.Components {
       this.Height.Set(150f, 0f);
 
       craftingEnvironment = new UIItemSlot();
-      craftingEnvironment.Top.Set(globalTextHeightOffset, 0f);
+      craftingEnvironment.Top.Set(globalTextHeightOffset + globalGapPixels, 0f);
       this.Append(craftingEnvironment);
 
-      var lineCount = (Parent.Width.Pixels - craftingEnvironment.Width.Pixels - 10f) / (craftingEnvironment.Width.Pixels + 15f);
+      var lineCount = Parent.Width.Pixels / (craftingEnvironment.Width.Pixels + globalGapPixels * 2);
       int i = 0, j = 0;
 
       for (int k = 0; k < _slots.Capacity; k++) {
         var currentSlot = new UIItemSlot();
-        currentSlot.Top.Set(craftingEnvironment.Height.Pixels * j + globalTextHeightOffset, 0f);
-        currentSlot.Left.Set(craftingEnvironment.Width.Pixels + 10f + (craftingEnvironment.Width.Pixels + 5f) * i, 0f);
+        currentSlot.Top.Set(globalTextHeightOffset * 2 + globalGapPixels * 3 + craftingEnvironment.Height.Pixels + craftingEnvironment.Height.Pixels * j, 0f);
+        currentSlot.Left.Set((craftingEnvironment.Width.Pixels + globalGapPixels * 2) * i, 0f);
 
         if (++i >= lineCount) {
           i = 0;
@@ -64,8 +65,10 @@ namespace JustEnoughRecipes.UI.Components {
 
       if (!this.craftingEnvironment.IsEmpty()) {
         // Help text
-        // TODO: i18n
-        Terraria.Utils.DrawBorderString(spriteBatch, "At:    Items:", dimensions.Position(), Color.White);
+        var envText = Utils.I18n.GetLocalizedString(Utils.I18n.craftingEnvironment) + ":";
+        var matText = Utils.I18n.GetLocalizedString(Utils.I18n.craftingMaterials) + ":";
+        Terraria.Utils.DrawBorderString(spriteBatch, envText, dimensions.Position(), Color.White);
+        Terraria.Utils.DrawBorderString(spriteBatch, matText, dimensions.Position() + new Vector2(0f, globalTextHeightOffset + craftingEnvironment.Height.Pixels + globalGapPixels * 2), Color.White);
       } else {
         var noRecipeText = Utils.I18n.GetLocalizedString(Utils.I18n.recipeNotFound);
         var fontPos = dimensions.Position() + new Vector2(this.Width.Pixels / 2, this.Height.Pixels / 2) - Main.fontMouseText.MeasureString(noRecipeText) / 2;
