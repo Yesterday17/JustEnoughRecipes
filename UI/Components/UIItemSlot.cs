@@ -51,8 +51,8 @@ namespace JustEnoughRecipes.UI.Components {
 
           // Draw item count if larger than 1
           if (this._item.stack > 1) {
-            var fontSize = Main.fontMouseText.MeasureString(this._item.stack.ToString());
-            var fontPos = dimensions.Position() + bgSize - fontSize * this._scale;
+            var fontSize = Main.fontMouseText.MeasureString(this._item.stack.ToString()) * this._scale;
+            var fontPos = dimensions.Position() + bgSize - fontSize;
             Terraria.Utils.DrawBorderString(spriteBatch, this._item.stack.ToString(), fontPos, Color.White, this._scale);
           }
 

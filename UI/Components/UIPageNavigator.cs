@@ -23,13 +23,16 @@ namespace JustEnoughRecipes.UI.Components {
 
     private int _now;
     private int _total;
+    private bool scrollable;
 
     public delegate void UpdateHandler(object sender, PageUpdateEventArgs e);
     public event UpdateHandler PageUpdateEvent;
 
-    public UIPageNavigator() {
+    public UIPageNavigator(bool scrollable = true) {
       prevTexture = JustEnoughRecipes.instance.GetTexture("Assets/arrow_prev");
       nextTexture = JustEnoughRecipes.instance.GetTexture("Assets/arrow_next");
+
+      this.scrollable = scrollable;
       SetPages(0, 0);
     }
 
@@ -93,7 +96,8 @@ namespace JustEnoughRecipes.UI.Components {
       pageText.Left.Set(Parent.Width.Pixels / 2 - Parent.PaddingLeft - Parent.PaddingRight, 0f);
       Append(pageText);
 
-      this.OnScrollWheel += ScrollWheel;
+      if (scrollable)
+        this.OnScrollWheel += ScrollWheel;
     }
 
     public void NextButtonClicked(UIMouseEvent evt, UIElement listeningElement) {

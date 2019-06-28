@@ -71,7 +71,7 @@ namespace JustEnoughRecipes.UI.Components {
         Terraria.Utils.DrawBorderString(spriteBatch, matText, dimensions.Position() + new Vector2(0f, globalTextHeightOffset + craftingEnvironment.Height.Pixels + globalGapPixels * 2), Color.White);
       } else {
         var noRecipeText = Utils.I18n.GetLocalizedString(Utils.I18n.recipeNotFound);
-        var fontPos = dimensions.Position() + new Vector2(this.Width.Pixels / 2, this.Height.Pixels / 2) - Main.fontMouseText.MeasureString(noRecipeText) / 2;
+        var fontPos = dimensions.Position() + new Vector2(this.Width.Pixels / 2 - Parent.PaddingLeft, this.Height.Pixels / 2) - Main.fontMouseText.MeasureString(noRecipeText) / 2;
         Terraria.Utils.DrawBorderString(spriteBatch, noRecipeText, fontPos, Color.White);
       }
     }

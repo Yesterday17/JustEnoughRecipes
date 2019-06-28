@@ -33,7 +33,7 @@ namespace JustEnoughRecipes.UI {
       RecipeUIPanel.Append(panelTitle);
 
       // page
-      pageNavigator = new UIPageNavigator();
+      pageNavigator = new UIPageNavigator(false);
       pageNavigator.Top.Set(32f, 0f); // the height of text is 30, add 2px gap
       pageNavigator.PageUpdateEvent += UpdateRecipe;
       RecipeUIPanel.Append(pageNavigator);
@@ -42,6 +42,9 @@ namespace JustEnoughRecipes.UI {
       recipeManager = new UIItemRecipe();
       recipeManager.Top.Set(55f, 0f);
       RecipeUIPanel.Append(recipeManager);
+
+      // Make recipe global scrollable
+      RecipeUIPanel.OnScrollWheel += pageNavigator.ScrollWheel;
 
       // button(test)
       // UITextButton button = new UITextButton("2333");
